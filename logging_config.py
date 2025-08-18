@@ -22,7 +22,7 @@ def configure_logging():
 
     # Configure the root logger to write to the app.log file
     logging.basicConfig(
-        filename='app.log',
+        filename='jira_automation.log',
         level=level,
         format='%(asctime)s - %(levelname)s - %(message)s',
         filemode='a'  # append mode

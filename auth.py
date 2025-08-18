@@ -11,16 +11,36 @@ load_dotenv()
 # Configure logging
 configure_logging()
 
-def get_jira_auth():
-    """Returns Jira Basic Auth object and domain."""
-    email = os.getenv("JIRA_EMAIL")
-    token = os.getenv("JIRA_API_TOKEN")
-    domain = os.getenv("JIRA_DOMAIN")
+JIRA_BASE_URL = os.getenv('JIRA_BASE_URL')
+JIRA_EMAIL = os.getenv('JIRA_EMAIL')
+JIRA_API_TOKEN = os.getenv('JIRA_API_TOKEN')
+JIRA_DOMAIN = os.getenv("JIRA_DOMAIN")   
 
-    if not all([email, token, domain]):
-        logging.error("Missing one or more required environment variables (JIRA_EMAIL, JIRA_API_TOKEN, JIRA_DOMAIN).")
-        raise ValueError("Missing JIRA_EMAIL, JIRA_API_TOKEN, or JIRA_DOMAIN in environment variables.")
+JIRA_PROJECT_KEY = os.getenv('JIRA_PROJECT_KEY')
 
-    logging.info(f"Attempting authentication for {email} with domain {domain}.")
-    auth = HTTPBasicAuth(email, token)
-    return auth, domain
+AUTH = (JIRA_EMAIL, JIRA_API_TOKEN)
+HEADERS = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+}
+
+
+def jira_auth():
+    try:
+        if not all([JIRA_EMAIL, JIRA_API_TOKEN, JIRA_DOMAIN]):
+            logging.error("Missing one or more required environment variables (JIRA_EMAIL, JIRA_API_TOKEN, JIRA_DOMAIN).")
+            raise ValueError("Missing JIRA_EMAIL, JIRA_API_TOKEN, or JIRA_DOMAIN in environment variables.")
+
+        logging.info(f"Attempting authentication for {JIRA_EMAIL} with domain {JIRA_DOMAIN}.")
+        HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
+    except ValueError as e:
+        logging.error(f"❌ Authentication failed: {e}")
+        return        
+    
+
+# def authorize():
+#     try:
+#         AUTH = get_jira_auth()  # Fetch Jira authentication from your auth module
+#     except ValueError as e:
+#         logging.error(f"❌ Authentication failed: {e}")
+#         return

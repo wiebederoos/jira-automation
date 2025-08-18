@@ -6,6 +6,7 @@ CUSTOM_FIELDS = {
     'customfield_10015': 'End Date',
     'customfield_10002': 'Estimated Effort',
     'customfield_10003': 'Story Points',
+    'customfield_10001': 'Teams'
     # Add more custom fields as needed
 }
 

@@ -1,4 +1,5 @@
 # main.py
+import os
 import requests
 import logging
 from auth import get_jira_auth
@@ -6,6 +7,8 @@ from logging_config import configure_logging
 
 # Configure logging
 configure_logging()
+
+JIRA_DOMAIN=os.getenv('JIRA_DOMAIN')
 
 def main():
     try:
@@ -15,7 +18,7 @@ def main():
         print(f"❌ Error: {e}")
         return
 
-    url = f"https://{domain}.atlassian.net/rest/api/3/myself"
+    url = f"https://{JIRA_DOMAIN}.atlassian.net/rest/api/3/myself"
     headers = {"Accept": "application/json"}
 
     logging.info(f"Sending request to {url} for authentication.")
