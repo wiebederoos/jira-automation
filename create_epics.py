@@ -6,13 +6,9 @@ import requests
 from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY 
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from logging_config import configure_logging
 
 # Load environment variables
 load_dotenv()
-
-# Configure logging
-configure_logging()
 
 CREATE_ISSUE_URL = f"{JIRA_BASE_URL}/rest/api/3/issue"
 

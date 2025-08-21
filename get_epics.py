@@ -2,17 +2,12 @@ import requests
 from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY  # Assumed you have an authentication function
 from dotenv import load_dotenv
 import logging
-import logging.config
 import os
 from field_config import FIELDS_TO_FETCH  # Import the fields list from field_config.py
 from custom_field_mappings import fetch_custom_fields  # Import custom field fetcher
-from logging_config import configure_logging
 
 # Load environment variables from .env file
 load_dotenv()
-
-# Configure logging
-configure_logging()
 
 GET_ISSUE_URL = f"{JIRA_BASE_URL}/rest/api/3/search"
 

@@ -24,7 +24,6 @@ HEADERS = {
     'Content-Type': 'application/json'
 }
 
-
 def jira_auth():
     try:
         if not all([JIRA_EMAIL, JIRA_API_TOKEN, JIRA_DOMAIN]):
@@ -35,12 +34,4 @@ def jira_auth():
         HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
     except ValueError as e:
         logging.error(f"❌ Authentication failed: {e}")
-        return        
-    
-
-# def authorize():
-#     try:
-#         AUTH = get_jira_auth()  # Fetch Jira authentication from your auth module
-#     except ValueError as e:
-#         logging.error(f"❌ Authentication failed: {e}")
-#         return
+        return

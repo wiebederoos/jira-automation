@@ -2,19 +2,7 @@ import os
 import requests
 import logging
 from dotenv import load_dotenv
-from auth import get_jira_auth, HEADERS
-
-JIRA_BASE_URL = os.getenv('JIRA_BASE_URL')
-JIRA_DOMAIN=os.getenv('JIRA_DOMAIN')
-JIRA_EMAIL = os.getenv('JIRA_EMAIL')
-JIRA_API_TOKEN = os.getenv('JIRA_API_TOKEN')
-JIRA_PROJECT_KEY = os.getenv('JIRA_PROJECT_KEY')
-
-
-auth = (JIRA_EMAIL, JIRA_API_TOKEN)
-headers = {
-    "Accept": "application/json"
-}
+from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY 
 
 # API endpoint
 url = f"{JIRA_BASE_URL}/rest/api/3/project/{JIRA_PROJECT_KEY}/versions"
@@ -24,12 +12,12 @@ load_dotenv()
 
 def get_fix_versions():
     try:
-        response = requests.get(url, headers=headers, auth=auth)
+        response = requests.get(url, headers=HEADERS, auth=AUTH)
         response.raise_for_status()
         versions = response.json()
         logging.info(f"Found {len(versions)} fix versions in project '{JIRA_PROJECT_KEY}'.")
         for version in versions:
-            print(f"- ID: {version.get('id')} | Name: {version.get('name')} | Released: {version.get('released')}")
+            logging.info(f"- ID: {version.get('id')} | Name: {version.get('name')} | Released: {version.get('released')}")
     except requests.exceptions.RequestException as e:
         logging.error(f"Failed to fetch fix versions: {e}")
 

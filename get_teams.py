@@ -1,29 +1,11 @@
 import os
 import requests
 import logging
+from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY 
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-
-JIRA_BASE_URL = os.getenv("JIRA_BASE_URL")
-JIRA_EMAIL = os.getenv("JIRA_EMAIL")
-JIRA_API_TOKEN = os.getenv("JIRA_API_TOKEN")
-
-if not all([JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN]):
-    raise ValueError("Missing required Jira environment variables.")
-
-# Auth and headers
-auth = (JIRA_EMAIL, JIRA_API_TOKEN)
-headers = {
-    "Accept": "application/json"
-}
-
-# Logging setup
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
 
 def fetch_all_teams():
     url = f"{JIRA_BASE_URL}/rest/teams/1.0/teams"
@@ -33,10 +15,10 @@ def fetch_all_teams():
 
     while True:
         params = {"startAt": start_at, "maxResults": max_results}
-        logging.debug(f"Fetching teams starting at {start_at}")
+        logging.info(f"Fetching teams starting at {start_at}")
         
         try:
-            response = requests.get(url, headers=headers, auth=auth, params=params)
+            response = requests.get(url, headers=HEADERS, auth=AUTH, params=params)
             response.raise_for_status()
             data = response.json()
 
@@ -54,7 +36,7 @@ def fetch_all_teams():
 
     logging.info(f"Fetched {len(all_teams)} teams.")
     for team in all_teams:
-        print(f"ID: {team.get('id')} | Name: {team.get('name')} | Type: {team.get('type')} | Members: {team.get('memberCount')}")
+        logging.info(f"ID: {team.get('id')} | Name: {team.get('name')} | Type: {team.get('type')} | Members: {team.get('memberCount')}")
     
     return all_teams
 
