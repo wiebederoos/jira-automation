@@ -1,14 +1,11 @@
 import os
 import requests
 import logging
-from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY 
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
+from auth import jira_auth, HEADERS, AUTH
+from constants import GET_TEAMS_URL
 
 def fetch_all_teams():
-    url = f"{JIRA_BASE_URL}/rest/teams/1.0/teams"
+    
     start_at = 0
     max_results = 50
     all_teams = []
@@ -18,7 +15,7 @@ def fetch_all_teams():
         logging.info(f"Fetching teams starting at {start_at}")
         
         try:
-            response = requests.get(url, headers=HEADERS, auth=AUTH, params=params)
+            response = requests.get(GET_TEAMS_URL, headers=HEADERS, auth=AUTH, params=params)
             response.raise_for_status()
             data = response.json()
 
@@ -41,4 +38,5 @@ def fetch_all_teams():
     return all_teams
 
 if __name__ == "__main__":
+    jira_auth()
     fetch_all_teams()

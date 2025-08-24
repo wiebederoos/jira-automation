@@ -1,13 +1,7 @@
 import requests
 import logging
-from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY 
-from dotenv import load_dotenv
-import os
-
-# Load environment variables from .env file
-load_dotenv()
-
-FIELD_URL = f"{JIRA_BASE_URL}/rest/api/3/field"
+from auth import jira_auth, HEADERS, AUTH
+from constants import GET_FIELDS_URL
 
 def fetch_all_custom_fields():
     # Pagination parameters
@@ -25,7 +19,7 @@ def fetch_all_custom_fields():
         }
 
         # Send the GET request
-        response = requests.get(FIELD_URL, headers=HEADERS, auth=AUTH, params=params)
+        response = requests.get(GET_FIELDS_URL, headers=HEADERS, auth=AUTH, params=params)
 
         if response.status_code == 200:
             fields_data = response.json()

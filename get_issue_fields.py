@@ -1,17 +1,11 @@
 import os
 import requests
 import logging
-from dotenv import load_dotenv
-from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY 
-from logging_config import configure_logging
-
-# Load environment
-load_dotenv()
+from auth import jira_auth, HEADERS, AUTH
+from constants import PROJECT_ISSUE_TYPES_FIELDS
 
 def list_fields_per_issue_type():
-    url = f"{JIRA_BASE_URL}/rest/api/3/issue/createmeta?projectKeys={JIRA_PROJECT_KEY}&expand=projects.issuetypes.fields"
-
-    response = requests.get(url, headers=HEADERS, auth=AUTH)
+    response = requests.get(PROJECT_ISSUE_TYPES_FIELDS, headers=HEADERS, auth=AUTH)
     if response.status_code != 200:
         logging.error(f"Error: {response.status_code} - {response.text}")
         return
@@ -29,4 +23,5 @@ def list_fields_per_issue_type():
             logging.info(f"   - {field_name} (ID: {field_id}){' [REQUIRED]' if required else ''}")
 
 if __name__ == "__main__":
+    jira_auth()
     list_fields_per_issue_type()

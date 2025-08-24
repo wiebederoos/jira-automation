@@ -1,15 +1,10 @@
 import requests
-from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY  # Assumed you have an authentication function
-from dotenv import load_dotenv
-import logging
 import os
-from field_config import FIELDS_TO_FETCH  # Import the fields list from field_config.py
-from custom_field_mappings import fetch_custom_fields  # Import custom field fetcher
-
-# Load environment variables from .env file
-load_dotenv()
-
-GET_ISSUE_URL = f"{JIRA_BASE_URL}/rest/api/3/search"
+import logging
+from auth import jira_auth, HEADERS, AUTH
+from constants import GET_ISSUE_URL, JIRA_PROJECT_KEY
+from field_config import FIELDS_TO_FETCH
+from custom_field_mappings import fetch_custom_fields
 
 def fetch_epics_for_project(project_key):
     """Fetch all Epics for a specific project, including labels and custom fields."""

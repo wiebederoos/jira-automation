@@ -1,16 +1,10 @@
 import os
 import json
 import logging
-import logging.config
 import requests
-from auth import jira_auth, JIRA_BASE_URL, HEADERS, AUTH, JIRA_PROJECT_KEY 
-from dotenv import load_dotenv
+from constants import CREATE_ISSUE_URL, EPICS_DIRECTORY, JIRA_PROJECT_KEY
+from auth import jira_auth, HEADERS, AUTH
 from concurrent.futures import ThreadPoolExecutor, as_completed
-
-# Load environment variables
-load_dotenv()
-
-CREATE_ISSUE_URL = f"{JIRA_BASE_URL}/rest/api/3/issue"
 
 def load_epic_data(file_path):
     """Load JSON data from file."""
@@ -50,8 +44,7 @@ def create_epic(file_path):
         logging.exception(f"Exception creating Epic from {file_path}: {e}")
 
 def create_epics_for_project():
-    epic_dir = 'epics'
-    epic_files = [os.path.join(epic_dir, f) for f in os.listdir(epic_dir) if f.endswith('.json')]
+    epic_files = [os.path.join(EPICS_DIRECTORY, f) for f in os.listdir(EPICS_DIRECTORY) if f.endswith('.json')]
 
     if not epic_files:
         logging.warning("No epic files found to process.")

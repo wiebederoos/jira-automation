@@ -1,6 +1,7 @@
 # logging_config.py
 import os
 import logging
+from constants import LOG_FILE
 
 def configure_logging():
     """Configures logging based on the log level from the environment variables."""
@@ -22,7 +23,7 @@ def configure_logging():
 
     # Configure the root logger to write to the app.log file
     logging.basicConfig(
-        filename='jira_automation.log',
+        filename=LOG_FILE,
         level=level,
         format='%(asctime)s - %(levelname)s - %(message)s',
         filemode='a'  # append mode

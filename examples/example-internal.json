@@ -1,0 +1,18 @@
+{
+    "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+            {
+                "type": "paragraph",
+                "content": [
+                    {
+                        "text": "Another epic nr 25",
+                        "type": "text"
+                    }
+                ]
+            }
+        ]
+    },
+    "summary": "A sample epic with a team nr 25"    
+}

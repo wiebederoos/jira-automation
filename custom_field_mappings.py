@@ -1,13 +1,17 @@
 # field_mappings.py
 
 # Custom field mappings (Field ID -> Field Name)
-CUSTOM_FIELDS = {
+CUSTOM_FIELDS_INTERNAL = {
+}
+
+CUSTOM_FIELDS_EXTERNAL = {
     'customfield_10015': 'Start date',
     'customfield_10058': 'End date',
-    'customfield_10001': 'team',
+    'customfield_10001': 'Team',
     'customfield_10059': 'Fix version'
-    # Add more custom fields as needed
 }
+
+CUSTOM_FIELDS=CUSTOM_FIELDS_EXTERNAL
 
 def get_custom_field_value(field_id, fields):
     """Fetch the value of a custom field based on the field ID."""
