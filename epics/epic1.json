@@ -7,16 +7,16 @@
                 "type": "paragraph",
                 "content": [
                     {
-                        "text": "Another epic nr 25",
+                        "text": "Another epic nr 25 that has just been updated",
                         "type": "text"
                     }
                 ]
             }
         ]
     },
-    "summary": "A sample epic with a team nr 25",
-    "customfield_10015": "2025-10-01",
-    "customfield_10058": "2025-12-31",
+    "summary": "A sample epic with a team nr 1",
+    "customfield_10015": "2025-11-01",
+    "customfield_10058": "2026-01-01",
     "customfield_10059": [
         {
             "name": "2025-03"

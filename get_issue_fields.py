@@ -1,27 +1,35 @@
 import os
 import requests
+import json
 import logging
+from constants import CREATE_ISSUE_URL, EPICS_DIRECTORY, JIRA_PROJECT_KEY, JIRA_BASE_URL
 from auth import jira_auth, HEADERS, AUTH
-from constants import PROJECT_ISSUE_TYPES_FIELDS
 
-def list_fields_per_issue_type():
-    response = requests.get(PROJECT_ISSUE_TYPES_FIELDS, headers=HEADERS, auth=AUTH)
+JIRA_EPIC_KEY = "ECS-35"
+
+def get_epic_fields(epic_key):
+    url = f"{JIRA_BASE_URL}/rest/api/3/issue/{epic_key}"
+    params = {
+        "fields": "*all",
+        "expand": "names,schema"
+    }
+
+    response = requests.get(url, headers=HEADERS, auth=AUTH, params=params)
+
     if response.status_code != 200:
-        logging.error(f"Error: {response.status_code} - {response.text}")
-        return
+        print(f"Error {response.status_code}: {response.text}")
+        return None
 
-    data = response.json()
-    project = data.get("projects", [])[0]
-    issue_types = project.get("issuetypes", [])
-
-    for issue_type in issue_types:
-        logging.info(f"\n📌 Issue Type: {issue_type['name']}")
-        fields = issue_type.get("fields", {})
-        for field_id, field_info in fields.items():
-            field_name = field_info.get("name")
-            required = field_info.get("required", False)
-            logging.info(f"   - {field_name} (ID: {field_id}){' [REQUIRED]' if required else ''}")
+    return response.json()
 
 if __name__ == "__main__":
     jira_auth()
-    list_fields_per_issue_type()
+    epic = get_epic_fields(JIRA_EPIC_KEY)
+    if epic:
+        # Pretty print JSON to console
+        logging.info(json.dumps(epic, indent=2))
+        
+        # Save to file
+        with open(f"{JIRA_EPIC_KEY}_fields.json", "w", encoding="utf-8") as f:
+            json.dump(epic, f, indent=2)
+        logging.info(f"\n✅ All fields for {JIRA_EPIC_KEY} saved to {JIRA_EPIC_KEY}_fields.json")

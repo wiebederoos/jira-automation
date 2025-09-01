@@ -6,6 +6,8 @@ FIELDS_TO_FETCH_INTERNAL = [
 ]
 
 FIELDS_TO_FETCH_EXTERNAL = [
+    "status",
+    "team",
     "labels",              # Standard field: labels
     "customfield_10015",   # Start date
     "customfield_10058",   # End Date

@@ -8,7 +8,9 @@ CUSTOM_FIELDS_EXTERNAL = {
     'customfield_10015': 'Start date',
     'customfield_10058': 'End date',
     'customfield_10001': 'Team',
-    'customfield_10059': 'Fix version'
+    'customfield_10059': 'Fix version',
+    'priority': 'priority',
+    'project': 'project'
 }
 
 CUSTOM_FIELDS=CUSTOM_FIELDS_EXTERNAL
