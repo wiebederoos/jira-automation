@@ -7,6 +7,7 @@ JIRA_BASE_URL = os.getenv('JIRA_BASE_URL')
 JIRA_PROJECT_KEY = os.getenv("JIRA_PROJECT_KEY")
 
 EPICS_DIRECTORY="epics"
+USERSTORY_DIRECTORY="userstories"
 LOG_FILE="jira_automation.log"
 
 GET_ISSUE_URL = f"{JIRA_BASE_URL}/rest/api/3/search"

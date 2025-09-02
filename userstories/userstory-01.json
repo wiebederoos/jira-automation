@@ -1,7 +1,7 @@
 {
   "fields": {
     "project": {
-      "key": "<project_key>"
+      "key": "ECS"
     },
     "issuetype": {
       "name": "Story"
@@ -19,6 +19,8 @@
         }
       ]
     },
-    "customfield_10014": "<project>"
+    "parent": {
+      "key": "ECS-35"
+    }
   }
 }
